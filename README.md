@@ -77,3 +77,9 @@ To follow the Single Responsibility Principle and Open Close Principle, we need 
     </NavLink>
 </li>
  ```
+
+## Add services dependency injection
+
+To follow dependency inverstion principle we need to do the dependency injection of our BillService. 
+* Add the following code on the ConfigureServices method of Startup class.
+```services.AddScoped<IBillService, BillService>();```
