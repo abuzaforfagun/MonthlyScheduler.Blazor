@@ -50,3 +50,30 @@ Our goal to deal with monthly bills. We need to display the bill list in our das
 * Because of Dependency Inversion principle we want to talk to interface. So lets create a interace first and name it IBillService. And add GetAll method declaration there for now. We will add more later. Declaration will be like below.
 ```Task<List<BillItem>> GetAll();```
 * Add the implemanation class, name it BillService. For simplicity we are going to return some hard coded values there.
+
+## Add bill component
+We need to add a component to display our bill list what we got from the bill service.
+* Right click on Pages folder of MonthlyBillScheduler.Server project, navigate Add and click on New Item.
+![Add razor component](https://user-images.githubusercontent.com/24603959/79052284-1d12ed00-7c57-11ea-9d0a-e24b77363260.JPG)
+
+* Select Razor Component, use Bills as the component name and click on Add button.
+![Add razor component 2](https://user-images.githubusercontent.com/24603959/79052501-c3132700-7c58-11ea-8911-74d8da6a1daf.JPG)
+
+We need to add mark up template inside newly created razor component. For the very first lets add the page directive there. We need to specify the route path too.
+```@page "/bills"```
+Here bills is our path. So we will get this page when we navigate to {application base url}/bills.
+
+To follow the Single Responsibility Principle and Open Close Principle, we need to segrigate C# code from the razor page.
+* Create new class and name it BillsBase.
+![image](https://user-images.githubusercontent.com/24603959/79052740-657fda00-7c5a-11ea-941c-17fb6b049863.png)
+
+* Inherit it from ComponentBase. This class is provided by Razor to establish communication between view and the c# class.
+* Remove the code block from razor page.
+* Add bills routes in the navigation bar. To do the following, we need to add bills item inside NavMenu.razor file.
+```
+<li class="nav-item px-3">
+    <NavLink class="nav-link" href="bills">
+        <span class="oi oi-list" aria-hidden="true"></span> Bill List
+    </NavLink>
+</li>
+ ```
