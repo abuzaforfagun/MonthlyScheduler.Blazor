@@ -83,3 +83,17 @@ To follow the Single Responsibility Principle and Open Close Principle, we need 
 To follow dependency inverstion principle we need to do the dependency injection of our BillService. 
 * Add the following code on the ConfigureServices method of Startup class.
 ```services.AddScoped<IBillService, BillService>();```
+
+## Integrate bills features
+
+We want to display the listed bill schedules. For simplicity we are going to use hard coded dummy data. And we already added them under BillService class. 
+
+* Do the dependency injection of BillService. We use ```[Inject]``` attribute to do so. Inject is a attribute provided by Blazor itself. We can use this only in component label.
+* Get the bill list and set to a property from bill service. In ASP .NET/ASP .NET Core application we use to do the data retriving in constractor method. But in Blazor you need to initialize the data inside OnInitialized method. There are asynchoronise and synchoronise version available for that method.
+* Add the ```@inherits BillsBase``` directive on the top of our Bills.razor file. So now we can access the code behind from our razor file.
+* Add a bootstrap table template.
+* Use razor syntax to populate data in the following table.
+
+![BillsBase Class](https://user-images.githubusercontent.com/24603959/79069019-cce66a00-7cec-11ea-8d84-466d3045a8da.JPG)
+![Bills Razor Template](https://user-images.githubusercontent.com/24603959/79069022-ceb02d80-7cec-11ea-8423-5589326fbc44.JPG)
+

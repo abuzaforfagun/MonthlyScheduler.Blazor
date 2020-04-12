@@ -1,4 +1,28 @@
 ﻿@page "/bills" 
+@inherits BillsBase
 
 <h1>Bills</h1>
 
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Title</th>
+            <th scope="col">Amount</th>
+            <th scope="col">Description</th>
+            <th scope="col">Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var bill in Bills)
+        {
+            <tr>
+                <td>@bill.Id</td>
+                <td>@bill.Name</td>
+                <td>@bill.Amount</td>
+                <td>@bill.Description</td>
+                <td>@bill.CreatedOn</td>
+            </tr>
+        }
+    </tbody>
+</table>
