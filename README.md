@@ -97,3 +97,10 @@ We want to display the listed bill schedules. For simplicity we are going to use
 ![BillsBase Class](https://user-images.githubusercontent.com/24603959/79069019-cce66a00-7cec-11ea-8d84-466d3045a8da.JPG)
 ![Bills Razor Template](https://user-images.githubusercontent.com/24603959/79069022-ceb02d80-7cec-11ea-8423-5589326fbc44.JPG)
 
+## Extend bill service with add bill feature
+
+For simplicity again we are going to deal with in memory list. 
+
+* Add method signature in ```IBillService``` interface.
+* Implement the method in ```BillService``` class. Previously we generate and return the bill list from GetAll method. As we need to add new bill using our Add method we need to move the initial list creation and data manupulation in constractor.
+* Previously we inject BillService as a Scopped dependency. So that a single request life cycle use the same implemanation details. As we are using in memory list, its better to use Singleton, we can get the same result for multiple requests in application life cycle. Open Startup.cs file and change the line ```services.AddScoped<IBillService, BillService>();``` by ```services.AddSingleton<IBillService, BillService>();```.
