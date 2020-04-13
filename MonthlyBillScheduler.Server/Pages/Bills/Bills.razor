@@ -11,6 +11,7 @@
             <th scope="col">Amount</th>
             <th scope="col">Description</th>
             <th scope="col">Date</th>
+            <th scope="col">Action</th>
         </tr>
     </thead>
     <tbody>
@@ -22,6 +23,7 @@
                 <td>@bill.Amount</td>
                 <td>@bill.Description</td>
                 <td>@bill.CreatedOn</td>
+                <td><a class="btn btn-primary" href="billform/@bill.Id">Edit</a></td>
             </tr>
         }
     </tbody>

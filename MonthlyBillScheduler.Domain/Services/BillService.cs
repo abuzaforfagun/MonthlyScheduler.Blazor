@@ -1,6 +1,7 @@
 ﻿using MonthlyBillScheduler.Domain.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace MonthlyBillScheduler.Domain.Services
@@ -8,9 +9,11 @@ namespace MonthlyBillScheduler.Domain.Services
     public class BillService : IBillService
     {
         private readonly List<BillItem> _bills;
+        private readonly Random _random;
 
         public BillService()
         {
+            _random = new Random();
             _bills = new List<BillItem>
             {
                 new BillItem {Id = 1, Name = "Internet Bill", Description = "Send internet bill to Link3", Amount = 1200, CreatedOn = new DateTime(2020, 04, 12)},
@@ -19,9 +22,26 @@ namespace MonthlyBillScheduler.Domain.Services
             };
         }
 
-        public void Add(BillItem bill)
+        public void Upsert(BillItem bill)
         {
-            _bills.Add(bill);
+            if(bill.Id == 0)
+            {
+                bill.Id = _random.Next();
+                bill.CreatedOn = DateTime.Now;
+                _bills.Add(bill);
+            }
+            else
+            {
+                var existingBill = _bills.SingleOrDefault(b => b.Id == bill.Id);
+                existingBill.Name = bill.Name;
+                existingBill.Description = bill.Description;
+                existingBill.ModifiedOn = DateTime.Now;
+            }
+        }
+
+        public BillItem Get(int id)
+        {
+            return _bills.SingleOrDefault(b => b.Id == id);
         }
 
         public Task<List<BillItem>> GetAll()

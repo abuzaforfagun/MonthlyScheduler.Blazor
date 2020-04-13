@@ -7,6 +7,7 @@ namespace MonthlyBillScheduler.Domain.Services
     public interface IBillService
     {
         Task<List<BillItem>> GetAll();
-        void Add(BillItem bill);
+        BillItem Get(int id);
+        void Upsert(BillItem bill);
     }
 }

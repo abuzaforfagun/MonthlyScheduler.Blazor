@@ -1,9 +1,11 @@
-﻿@page "/billform" 
+﻿@page "/billform"
+@page "/billform/{BillId}"
+
 @inherits BillFormBase
 
 <h3>Bill Entry</h3>
 
-<EditForm Model="@Bill" OnValidSubmit="AddBillEntry">
+<EditForm Model="@Bill" OnValidSubmit="SaveBillEntry">
     <div class="form-group">
         <label for="exampleInputEmail1">Bill name</label>
         <InputText id="title" @bind-Value="@Bill.Name" placeholder="Bill name" />

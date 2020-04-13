@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using MonthlyBillScheduler.Domain.Models;
 using MonthlyBillScheduler.Domain.Services;
-using System;
 
 namespace MonthlyBillScheduler.Server.Pages.BillForm
 {
@@ -9,12 +8,20 @@ namespace MonthlyBillScheduler.Server.Pages.BillForm
     {
         [Inject]
         public IBillService BillService { get; set; }
-        public BillItem Bill { get; set; } = new BillItem { CreatedOn = DateTime.Now };
+        [Parameter]
+        public string BillId { get; set; }
+        public BillItem Bill { get; set; }
 
-        public void AddBillEntry()
+        protected override void OnInitialized()
         {
-            BillService.Add(Bill);
-            Bill = new BillItem { CreatedOn = DateTime.Now }; ;
+            Bill = string.IsNullOrWhiteSpace(BillId) ? new BillItem() : BillService.Get(int.Parse(BillId));
+
+            base.OnInitialized();
+        }
+        public void SaveBillEntry()
+        {
+            BillService.Upsert(Bill);
+            Bill = new BillItem();
         }
     }
 }

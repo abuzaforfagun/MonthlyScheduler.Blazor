@@ -121,3 +121,16 @@ For simplicity again we are going to deal with in memory list.
 
 ![Bill Form](https://user-images.githubusercontent.com/24603959/79104379-48e5be00-7d90-11ea-86cc-795ce8f6e681.JPG)
 ![Bills Base](https://user-images.githubusercontent.com/24603959/79104381-4b481800-7d90-11ea-94b6-50ecbd7ef7ed.JPG)
+
+
+## Add edit bill feature
+
+* To edit a bill we are going to use the same form what we created last time. We need to add a parametre over the component. To use the same form for adding and editing bill we need to add another page directive in our razor component. ```@page "/billform/{BillId}"```, here BillId would be mapped if the routes comes with any parametre. We also need to add BillId property in our BillFormBase class.
+* Insisted of creating Bill object we need to checkout BillId having value or not. If we found, BillId is null, need to create a new BillItem object otherwise, get the existing bill object from BillService. We know, ```OnInitialized``` is the best place to do that.
+* We need to extend our IBillService to get a single bill from the list.
+* Add an action button to go to the edit form in our Bills razor component.
+![Add action button](https://user-images.githubusercontent.com/24603959/79109523-530cba00-7d9a-11ea-978b-f460c86985d2.JPG)
+* Currently, we are using ```Add``` method of bill service to add new bill. We need to change the implimanation, as we are going to use the same component for add new bill and update existing one.
+* We changed our Add method to Upsert. And for clearification, the duty of upsert is inserting new object if it is not available otherwise update the exisiting one. Note: as we are using in memory list, so we are using random number as Id. Please keep in mind that for simplicity we are using manual mapping and this is not a good practice.
+![Upsert](https://user-images.githubusercontent.com/24603959/79110422-307ba080-7d9c-11ea-83e9-9c8e6a00d6be.JPG)
+* We also need to rename the ```AddBillEntry``` from our Component class. As the duty of this method is creating/updating bill we can use ```SaveBillEntry```.
