@@ -104,3 +104,20 @@ For simplicity again we are going to deal with in memory list.
 * Add method signature in ```IBillService``` interface.
 * Implement the method in ```BillService``` class. Previously we generate and return the bill list from GetAll method. As we need to add new bill using our Add method we need to move the initial list creation and data manupulation in constractor.
 * Previously we inject BillService as a Scopped dependency. So that a single request life cycle use the same implemanation details. As we are using in memory list, its better to use Singleton, we can get the same result for multiple requests in application life cycle. Open Startup.cs file and change the line ```services.AddScoped<IBillService, BillService>();``` by ```services.AddSingleton<IBillService, BillService>();```.
+
+## Build up add fill feature razor components
+
+* Like above we need to create a new Razor component, named ```BillForm```, we will use the same one for update bill. And because of that BillForm is most appropiate name.
+* Add BillFormBase class and inherit it from ```ComponentBase```.
+* Add page directive as ```@page "/billform"``` to add route of '/billform'. So we can access this page using this route.
+* Add inherits directive as ```@inherits BillFormBase``` to talk to the base class.
+* Add a bootstrap form template to make it little good.
+* Use ```EditForm``` component insisted of using html form element. EditForm is provided by Blazor itself.
+* We need to add a model attribute to bind the form data. Because of that we have created a property inside BillFromBase class, named it Bill, and we used this as the value of Model attribute.
+* There are couple of event available in EditForm component. We are going to fire an event when user submit the for with valid data. We talk about the validation later. And ```OnValidSubmit``` event executed when a form submitted with valid data. So we create a method named ```AddBillEntry``` and use this as the value of OnValidSubmit.
+* Add a button with submit type
+* We need to inject BillService as like above. And call the newly added ```Add``` method to do the operation of adding new bill.
+* We need to add newly created route in NavMenu razor component.
+
+![Bill Form](https://user-images.githubusercontent.com/24603959/79104379-48e5be00-7d90-11ea-86cc-795ce8f6e681.JPG)
+![Bills Base](https://user-images.githubusercontent.com/24603959/79104381-4b481800-7d90-11ea-94b6-50ecbd7ef7ed.JPG)
