@@ -134,3 +134,17 @@ For simplicity again we are going to deal with in memory list.
 * We changed our Add method to Upsert. And for clearification, the duty of upsert is inserting new object if it is not available otherwise update the exisiting one. Note: as we are using in memory list, so we are using random number as Id. Please keep in mind that for simplicity we are using manual mapping and this is not a good practice.
 ![Upsert](https://user-images.githubusercontent.com/24603959/79110422-307ba080-7d9c-11ea-83e9-9c8e6a00d6be.JPG)
 * We also need to rename the ```AddBillEntry``` from our Component class. As the duty of this method is creating/updating bill we can use ```SaveBillEntry```.
+
+## Add validation
+
+Still now, we have no validation in our application. Anyone can insert data with no values. We need to expose a minimum validation to protect the system from invalid data. For now we are going to use attribute based validation.
+
+* Install ```System.ComponentModel.Annotations``` nuget package in MonthlyBillScheduler.Domain project.
+* Add ```Required``` attribute for Name property and ```Range``` attribute for Amount property. We need to specify minimum and maximum range. In our case, 1 is the minium value and there is no limit behind the maximum one.
+![Validation 1](https://user-images.githubusercontent.com/24603959/79152748-8f6a0580-7dee-11ea-9591-a5cf635cc6c4.JPG)
+* Add ```DataAnnotationsValidator``` inside EditForm of BillForm razor page. It indicates, this form need to be validated.
+* Also insert ```ValidationSummary``` inside EditForm. It gonna display the validation summery when you submit with invalid data.
+* Add ```ValidationMessage``` component to display specific validation error for a single property. ValidationMessage having ```For``` attribute, we need to pass a func there and that need to specify our property.
+![Validation 2](https://user-images.githubusercontent.com/24603959/79154414-4ebfbb80-7df1-11ea-994e-657f7b9b4fa0.JPG)
+
+When you run the application, you may get some ugly formated error message. We will fix it later.
