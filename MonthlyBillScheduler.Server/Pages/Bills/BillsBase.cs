@@ -17,5 +17,10 @@ namespace MonthlyBillScheduler.Server.Pages.Bills
         {
             Bills = await BillService.GetAll();
         }
+
+        public void DeleteBill(int id)
+        {
+            BillService.Delete(id);
+        }
     }
 }

@@ -9,5 +9,6 @@ namespace MonthlyBillScheduler.Domain.Services
         Task<List<BillItem>> GetAll();
         BillItem Get(int id);
         void Upsert(BillItem bill);
+        void Delete(int id);
     }
 }

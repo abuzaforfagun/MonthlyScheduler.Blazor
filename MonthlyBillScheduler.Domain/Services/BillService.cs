@@ -48,5 +48,12 @@ namespace MonthlyBillScheduler.Domain.Services
         {
             return Task.FromResult(_bills);
         }
+
+        public void Delete(int id)
+        {
+            var bill = _bills.SingleOrDefault(b => b.Id == id);
+            _ = bill ?? throw new Exception();
+            _bills.Remove(bill);
+        }
     }
 }
