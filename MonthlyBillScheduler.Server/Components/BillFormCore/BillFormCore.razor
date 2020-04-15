@@ -1,9 +1,6 @@
-﻿@page "/billform"
-@page "/billform/{BillId}"
+﻿@inherits BillFormCoreBase
 
-@inherits BillFormBase
-
-<h3>Bill Entry</h3>
+<h3>BillForm</h3>
 
 <EditForm Model="@Bill" OnValidSubmit="SaveBillEntry">
     <DataAnnotationsValidator />
