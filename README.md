@@ -180,3 +180,17 @@ We are done with create, read and update. Now only delation remaining for this b
 * Add ```DeleteBill``` method in BillsBase class and implement it to call Delete method of bill service.
 * Add new action button inside the table of Bills razor component. This time we need to pass an argument in the delete method from onclick action. ```onclick``` event expect a func, so we need to pass a func like ```@onclick="(() => DeleteBill(bill.Id))"```.
 ![Delete Button](https://user-images.githubusercontent.com/24603959/79237572-233fde00-7e90-11ea-8dfb-3b79e6b0ac2b.JPG)
+
+## Add toaster
+
+Currently we are not giving any information to user about their action. We should give some interactive notification regarding their action. We are going to use [https://github.com/sotsera/sotsera.blazor.toaster](Sotsera.Blazor.Toaster) to display a simple toast message.
+
+* Run ```Install-Package Sotsera.Blazor.Toaster -Version 3.0.0``` from your package manager console.
+* To integrate this library in dependency injection, add the following line inside ```ConfigurationService``` method of your startup class. ```services.AddToaster()```
+* Sotsera.Blazor.Toaster required some css files, add the following code line inside head tag of _Host.cshtml. ```<link href="_content/Sotsera.Blazor.Toaster/toastr.min.css" rel="stylesheet" />```.
+* Add the following code block in ```App.razor``` file. This one helps you to render the toaster component.
+```@using Sotsera.Blazor.Toaster
+<ToastContainer />
+```
+* To fire toaster we need to inject the toaster first. Like others, we use ```[Inject]``` attribute of Blazor in our BillFormBase class.
+* Fire the toaster using ```Toaster.Info("Bill added sucessfully");``` in our ```SaveBillEntry``` method of BillFormBase class.
