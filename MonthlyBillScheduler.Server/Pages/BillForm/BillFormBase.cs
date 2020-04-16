@@ -14,17 +14,27 @@ namespace MonthlyBillScheduler.Server.Pages.BillForm
         [Parameter]
         public string BillId { get; set; }
         public BillItem Bill { get; set; }
+
+        bool isEditMode;
+
         protected override void OnInitialized()
         {
             Bill = string.IsNullOrWhiteSpace(BillId) ? new BillItem() : BillService.Get(int.Parse(BillId));
-
+            isEditMode = Bill.Id > 0;
             base.OnInitialized();
         }
         public void SaveBillEntry()
         {
             BillService.Upsert(Bill);
-            Bill = new BillItem();
-            Toaster.Info("Bill added sucessfully");
+            if (isEditMode)
+            {
+                Toaster.Info("Bill updated sucessfully!");
+            }
+            else
+            {
+                Bill = new BillItem();
+                Toaster.Info("Bill added sucessfully");
+            }
         }
     }
 }

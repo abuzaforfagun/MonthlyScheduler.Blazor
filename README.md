@@ -194,3 +194,12 @@ Currently we are not giving any information to user about their action. We shoul
 ```
 * To fire toaster we need to inject the toaster first. Like others, we use ```[Inject]``` attribute of Blazor in our BillFormBase class.
 * Fire the toaster using ```Toaster.Info("Bill added sucessfully");``` in our ```SaveBillEntry``` method of BillFormBase class.
+
+## Make edit form more robust
+
+Currently we rest the form after saving the data, we need to keep the data when user save existing bill information.
+
+* Introduce variable named isEditMode in BillFormBase class.
+* For edit mode, we must have some value for Id property of Bill object, othersie 0. So assign the value of isEditMode accordingly. ```isEditMode = Bill.Id > 0```.
+* In SaveBillEntry method, check this is in edit mode or not, and depending on the mode do further actions.
+![EditMode](https://user-images.githubusercontent.com/24603959/79421279-4b3c5800-7fdc-11ea-9672-8d080566f531.JPG)
