@@ -1,29 +1,23 @@
-# MonthlyScheduler.Blazor
+# Blazor application with external Web API
 
-Very simple and straight forward goal. Use balzor to create a super simple application, use several features and components of blazor.
+Currently we are serving the view and the database interaction using a same application. To make our application more robous and more decoupled we can move our database operation and all business logic into a separate application. And serve it as Web API and talk to that web api from our blazor application.
 
-## Prerequisites
-* Visual Studio 2019 or later
-* Dot Net Core 3.1 or later
+## Creating new web api with desired actions
 
-## Roadmap
-- [x] Basic Implementation
-    - [x] Creating Blazor Application
-    - [x] Separate business logic and ui
-    - [x] Dependency Injection
-    - [x] CRUD operation
-    - [x] Basic form validation
-- [x] Using Dialog
-    - [x] Creating dialogs
-    - [x] Event callback
-    - [x] Reuse components
-- [ ] Blazor application with external Web API
-- [ ] Blazor WebAssembly
+* Create a new .net core web api application following by right click on Solution -> Add -> New Project and select ASP .Net Core Web Application.
 
-## Implementation
-* [Basic Implemanation](https://github.com/abuzaforfagun/MonthlyScheduler.Blazor/tree/Basic-Implementation)
-* [Dialog](https://github.com/abuzaforfagun/MonthlyScheduler.Blazor/tree/Dialog)
+![web api project creation](https://user-images.githubusercontent.com/24603959/79445318-47213200-7ffe-11ea-9953-d6a6458fdd54.JPG)
 
-## Contribute
+* Enter the project name and click on Next.
+* Select API template and press Create.
+![web api project creation 2](https://user-images.githubusercontent.com/24603959/79445305-44264180-7ffe-11ea-8169-ca3e6db90600.JPG)
+* Create a controller inside Controllers folder and name it as BillsController.
+* Add a reference of Domain project.
+* Move the dependency registration of BillService from the startp class of MonthlyBillScheduler.Server to startup class of MonthlyBillScheduler.API project.
+* Do the dependency injection of BillService inside BillsController. This time we have no access of Inject attribute, and we do the constractor dependency injection.
+![Controller dependency injection](https://user-images.githubusercontent.com/24603959/79446075-7be1b900-7fff-11ea-9d2c-f2b06033d5ec.JPG)
 
-You are welcome to extend this repository. Please clone and create your feature specific folder at root, implement the feature with a well-defined readme file and create a pull request. You are done :)
+* Add actions for get, create, update and delete.
+![Bill controller actions](https://user-images.githubusercontent.com/24603959/79447618-f3b0e300-8001-11ea-93c4-9e74dddef873.JPG)
+
+* Only one thing remaining, we need to change our application port to make it static. Go to launchSettings.json (You can find it under properties) and change the applicationUrl to http://localhost:5000.

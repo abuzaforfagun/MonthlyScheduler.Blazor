@@ -3,9 +3,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Sotsera.Blazor.Toaster.Core.Models;
+using MonthlyBillScheduler.Domain.Services;
 
-namespace MonthlyBillScheduler.Server
+namespace MonthlyBillScheduler.API
 {
     public class Startup
     {
@@ -17,19 +17,12 @@ namespace MonthlyBillScheduler.Server
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddRazorPages();
-            services.AddServerSideBlazor();
+            services.AddControllers();
 
-            services.AddToaster(config =>
-            {
-                //example customizations
-                config.PositionClass = Defaults.Classes.Position.TopRight;
-                config.PreventDuplicates = true;
-                config.NewestOnTop = false;
-            });
+            services.AddSingleton<IBillService, BillService>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -39,19 +32,14 @@ namespace MonthlyBillScheduler.Server
             {
                 app.UseDeveloperExceptionPage();
             }
-            else
-            {
-                app.UseExceptionHandler("/Error");
-            }
-
-            app.UseStaticFiles();
 
             app.UseRouting();
 
+            app.UseAuthorization();
+
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapBlazorHub();
-                endpoints.MapFallbackToPage("/_Host");
+                endpoints.MapControllers();
             });
         }
     }
