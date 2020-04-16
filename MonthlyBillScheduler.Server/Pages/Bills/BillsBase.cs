@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using MonthlyBillScheduler.Domain.Models;
 using MonthlyBillScheduler.Domain.Services;
-using MonthlyBillScheduler.Server.Components.BillFormCore;
 using MonthlyBillScheduler.Server.Components.Dialogs;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -16,7 +15,7 @@ namespace MonthlyBillScheduler.Server.Pages.Bills
         public List<BillItem> Bills { get; set; }
 
         public BillFormDialogBase BillFormDialog { get; set; }
-        public bool ShowDialog { get; set; }
+        public bool IsShowDialog { get; set; }
 
 
         protected override async Task OnInitializedAsync()
@@ -29,15 +28,14 @@ namespace MonthlyBillScheduler.Server.Pages.Bills
             BillService.Delete(id);
         }
 
-        public void DisplayAddBillDialog() => ShowDialog = true;
-        public void BillFormDialog_OnClose() => ShowDialog = false;
+        public void DisplayAddBillDialog() => IsShowDialog = true;
+        public void BillFormDialog_OnClose() => IsShowDialog = false;
 
 
         public async void BillFormDialog_OnSave()
         {
             Bills = await BillService.GetAll();
-            ShowDialog = false;
-            StateHasChanged();
+            IsShowDialog = false;
         }
     }
 }

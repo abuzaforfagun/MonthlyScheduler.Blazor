@@ -10,7 +10,9 @@
                 </button>
             </div>
             <div class="modal-body">
-                <MonthlyBillScheduler.Server.Components.BillFormCore.BillFormCore @ref="BillFormDialogCore" SaveEventCallBack="@SaveEntry"></MonthlyBillScheduler.Server.Components.BillFormCore.BillFormCore>
+                <MonthlyBillScheduler.Server.Components.BillFormCore.BillFormCore 
+                                                                                  @ref="BillFormCore" 
+                                                                                  SaveEventCallBack="@BillFormCore_OnSave"/>
             </div>
         </div>
     </div>

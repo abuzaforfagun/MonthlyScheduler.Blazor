@@ -13,7 +13,7 @@ namespace MonthlyBillScheduler.Server.Components.BillFormCore
 
         [Parameter]
         public EventCallback<bool> SaveEventCallBack { get; set; }
-        protected override void OnInitialized()
+        protected override void OnInitialized() 
         {
             base.OnInitialized();
         }

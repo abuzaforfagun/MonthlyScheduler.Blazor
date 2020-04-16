@@ -11,14 +11,14 @@ namespace MonthlyBillScheduler.Server.Components.Dialogs
         [Parameter]
         public EventCallback<bool> SaveEventCallBack { get; set; }
 
-        public BillFormCoreBase BillFormDialogCore { get; set; }
+        public BillFormCoreBase BillFormCore { get; set; }
 
         public async void CloseDialog()
         {
             await CloseEventCallback.InvokeAsync(true);
         }
 
-        public async void SaveEntry()
+        public async void BillFormCore_OnSave()
         {
             await SaveEventCallBack.InvokeAsync(true);
         }
