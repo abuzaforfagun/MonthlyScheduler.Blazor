@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MonthlyBillScheduler.Domain.Services;
+using Sotsera.Blazor.Toaster.Core.Models;
 
 namespace MonthlyBillScheduler.Server
 {
@@ -24,6 +25,13 @@ namespace MonthlyBillScheduler.Server
             services.AddServerSideBlazor();
 
             services.AddSingleton<IBillService, BillService>();
+            services.AddToaster(config =>
+            {
+                //example customizations
+                config.PositionClass = Defaults.Classes.Position.TopRight;
+                config.PreventDuplicates = true;
+                config.NewestOnTop = false;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
