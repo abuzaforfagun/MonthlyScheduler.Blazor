@@ -33,3 +33,6 @@ Currently we communicating between pages. We used one page for edit and add new 
 }
 ```
 * BillFormDialog_OnSave method retrive the data from BillService and hide the dialog component.
+* Now BillFormCore and BillForm having almost duplicated data. We can reuse BillFormCore inside BillForm component.
+![Bill Form](https://user-images.githubusercontent.com/24603959/79428248-b5a6c580-7fe7-11ea-8913-536da1aba46b.JPG)
+* As we are now only dealing with update scinario. We can remove the logic relates to adding new bill from our BillForm base class.

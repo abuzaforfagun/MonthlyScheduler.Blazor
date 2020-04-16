@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using MonthlyBillScheduler.Domain.Models;
 using MonthlyBillScheduler.Domain.Services;
+using MonthlyBillScheduler.Server.Components.BillFormCore;
 using Sotsera.Blazor.Toaster;
 
 namespace MonthlyBillScheduler.Server.Pages.BillForm
@@ -14,27 +15,17 @@ namespace MonthlyBillScheduler.Server.Pages.BillForm
         [Parameter]
         public string BillId { get; set; }
         public BillItem Bill { get; set; }
-
-        bool isEditMode;
+        public BillFormCoreBase BillFormCore { get; set; }
 
         protected override void OnInitialized()
         {
             Bill = string.IsNullOrWhiteSpace(BillId) ? new BillItem() : BillService.Get(int.Parse(BillId));
-            isEditMode = Bill.Id > 0;
             base.OnInitialized();
         }
-        public void SaveBillEntry()
+        public void BillFormCore_OnSave()
         {
             BillService.Upsert(Bill);
-            if (isEditMode)
-            {
-                Toaster.Info("Bill updated sucessfully!");
-            }
-            else
-            {
-                Bill = new BillItem();
-                Toaster.Info("Bill added sucessfully");
-            }
+            Toaster.Info("Bill updated sucessfully!");
         }
     }
 }
