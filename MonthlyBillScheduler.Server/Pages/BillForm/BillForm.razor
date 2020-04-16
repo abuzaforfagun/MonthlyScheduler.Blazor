@@ -3,24 +3,7 @@
 
 @inherits BillFormBase
 
-<h3>Bill Entry</h3>
+<MonthlyBillScheduler.Server.Components.BillFormCore.BillFormCore @ref="BillFormCore"
+                                                                  Bill="Bill"
+                                                                  SaveEventCallBack="@BillFormCore_OnSave" />
 
-<EditForm Model="@Bill" OnValidSubmit="SaveBillEntry">
-    <DataAnnotationsValidator/>
-    <ValidationSummary/>
-    <div class="form-group">
-        <label for="exampleInputEmail1">Bill name</label>
-        <InputText id="title" @bind-Value="@Bill.Name" placeholder="Bill name" />
-        <label><ValidationMessage For="@(()=> Bill.Name)" /></label>
-    </div>
-    <div class="form-group">
-        <label for="exampleInputEmail1">Amount</label>
-        <InputNumber id="title" @bind-Value="@Bill.Amount" placeholder="Amount" />
-        <label><ValidationMessage For="@(()=> Bill.Amount)" /></label>
-    </div>
-    <div class="form-group">
-        <label for="exampleInputEmail1">Description</label>
-        <InputText id="title" @bind-Value="@Bill.Description" placeholder="Description" />
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-</EditForm>

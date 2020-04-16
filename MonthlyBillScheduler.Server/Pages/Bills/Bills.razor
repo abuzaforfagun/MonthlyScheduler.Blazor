@@ -2,6 +2,11 @@
 @inherits BillsBase
 
 <h1>Bills</h1>
+<div class="row">
+    <div class="offset-md-10 col-md-2">
+        <button class="btn btn-primary table-btn quick-add-btn" @onclick="DisplayAddBillDialog">&nbsp; &nbsp; + &nbsp; &nbsp;</button>
+    </div>
+</div>
 
 <table class="table">
     <thead>
@@ -31,3 +36,10 @@
         }
     </tbody>
 </table>
+
+@if (IsShowDialog)
+{
+    <MonthlyBillScheduler.Server.Components.Dialogs.BillFormDialog @ref="BillFormDialog" 
+                                                                   CloseEventCallback="BillFormDialog_OnClose" 
+                                                                   SaveEventCallBack="BillFormDialog_OnSave"/>
+}
