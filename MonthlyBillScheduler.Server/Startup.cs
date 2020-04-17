@@ -3,7 +3,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using MonthlyBillScheduler.Server.Services;
 using Sotsera.Blazor.Toaster.Core.Models;
+using System;
 
 namespace MonthlyBillScheduler.Server
 {
@@ -21,7 +23,7 @@ namespace MonthlyBillScheduler.Server
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
-            services.AddServerSideBlazor();
+            services.AddServerSideBlazor(); 
 
             services.AddToaster(config =>
             {
@@ -29,6 +31,11 @@ namespace MonthlyBillScheduler.Server
                 config.PositionClass = Defaults.Classes.Position.TopRight;
                 config.PreventDuplicates = true;
                 config.NewestOnTop = false;
+            });
+
+            services.AddHttpClient<IBillDataService, BillDataService>(client =>
+            {
+                client.BaseAddress = new Uri(Configuration.GetSection("API").Value);
             });
         }
 

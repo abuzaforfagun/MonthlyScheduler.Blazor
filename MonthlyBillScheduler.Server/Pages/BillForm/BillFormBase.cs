@@ -1,15 +1,16 @@
 ﻿using Microsoft.AspNetCore.Components;
 using MonthlyBillScheduler.Domain.Models;
-using MonthlyBillScheduler.Domain.Services;
 using MonthlyBillScheduler.Server.Components.BillFormCore;
+using MonthlyBillScheduler.Server.Services;
 using Sotsera.Blazor.Toaster;
+using System.Threading.Tasks;
 
 namespace MonthlyBillScheduler.Server.Pages.BillForm
 {
     public class BillFormBase : ComponentBase
     {
         [Inject]
-        public IBillService BillService { get; set; }
+        public IBillDataService BillService { get; set; }
         [Inject]
         protected IToaster Toaster { get; set; }
         [Parameter]
@@ -17,14 +18,14 @@ namespace MonthlyBillScheduler.Server.Pages.BillForm
         public BillItem Bill { get; set; }
         public BillFormCoreBase BillFormCore { get; set; }
 
-        protected override void OnInitialized()
+        protected override async Task OnInitializedAsync()
         {
-            Bill = string.IsNullOrWhiteSpace(BillId) ? new BillItem() : BillService.Get(int.Parse(BillId));
-            base.OnInitialized();
+            Bill = string.IsNullOrWhiteSpace(BillId) ? new BillItem() : await BillService.GetAsync(int.Parse(BillId));
         }
-        public void BillFormCore_OnSave()
+
+        public async void BillFormCore_OnSave()
         {
-            BillService.Upsert(Bill);
+            await BillService.SaveAsync(Bill);
             Toaster.Info("Bill updated sucessfully!");
         }
     }

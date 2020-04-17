@@ -21,3 +21,26 @@ Currently we are serving the view and the database interaction using a same appl
 ![Bill controller actions](https://user-images.githubusercontent.com/24603959/79447618-f3b0e300-8001-11ea-93c4-9e74dddef873.JPG)
 
 * Only one thing remaining, we need to change our application port to make it static. Go to launchSettings.json (You can find it under properties) and change the applicationUrl to http://localhost:5000.
+
+## Integrate newly created web api in blazor app
+
+* Add new services to integrate with newly created api. We are going to create a new folder inside MonthlyBillScheduler.Server and name it Services.
+* Add an interface and name it IBillDataService.
+
+![IBillDataService](https://user-images.githubusercontent.com/24603959/79449549-3b853980-8005-11ea-873e-0e3fb0a34b57.JPG)
+* Add new vairable of our api inside appsettings of MonthlyBillScheduler.Server app.
+![appsettings](https://user-images.githubusercontent.com/24603959/79449960-fa415980-8005-11ea-97c4-c9ecbdb84a16.JPG)
+
+* Register new dependency of IHttpClient in the startup class of our blazor application. We are also adding the base url of that http client from our appsettings.
+![Add http client dependenc](https://user-images.githubusercontent.com/24603959/79450263-8b183500-8006-11ea-978b-324ef68e4ed8.JPG)
+
+* Create a new class named BillDataService and implement IBillDataService.
+* Do the HttpClient dependency injection using constractor injection.
+* Call our desired api and deserialize it from BillDataService.
+![Call api](https://user-images.githubusercontent.com/24603959/79532691-ae3ef500-8097-11ea-8d85-352149724394.JPG)
+
+* Replace the uses of IBillService and use IBillDataService.
+* Add ```StateHasChanged()``` after every action. It helps razor view to detect the changes.
+* As we are retreiving data from api, there are some latency available. We need to add a loading indicator before the data retriving happens.
+![Add Loading](https://user-images.githubusercontent.com/24603959/79532922-6f5d6f00-8098-11ea-879a-680b3d200655.JPG)
+

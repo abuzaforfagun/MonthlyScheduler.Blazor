@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MonthlyBillScheduler.Domain.Models;
 using MonthlyBillScheduler.Domain.Services;
+using System.Threading.Tasks;
 
 namespace MonthlyBillScheduler.API.Controllers
 {
@@ -16,7 +17,7 @@ namespace MonthlyBillScheduler.API.Controllers
         }
 
         [HttpGet]
-        public ActionResult GetAll() => Ok(billService.GetAll());
+        public async Task<IActionResult> GetAll() => Ok( await billService.GetAll());
 
         [HttpGet("{id}")]
         public ActionResult Get(int id) => Ok(billService.Get(id));
