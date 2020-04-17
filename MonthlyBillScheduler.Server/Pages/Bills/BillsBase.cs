@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Components;
-using MonthlyBillScheduler.Domain.Models;
-using MonthlyBillScheduler.Domain.Services;
+using MonthlyBillScheduler.Entities.Models;
 using MonthlyBillScheduler.Server.Components.Dialogs;
+using MonthlyBillScheduler.Server.Services;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace MonthlyBillScheduler.Server.Pages.Bills
@@ -10,22 +11,24 @@ namespace MonthlyBillScheduler.Server.Pages.Bills
     public class BillsBase : ComponentBase
     {
         [Inject]
-        public IBillService BillService { get; set; }
+        public IBillDataService BillService { get; set; }
 
         public List<BillItem> Bills { get; set; }
 
         public BillFormDialogBase BillFormDialog { get; set; }
         public bool IsShowDialog { get; set; }
 
-
         protected override async Task OnInitializedAsync()
         {
-            Bills = await BillService.GetAll();
+            Bills = await BillService.GetAllAsync();
         }
 
-        public void DeleteBill(int id)
+        public async void DeleteBill(int id)
         {
-            BillService.Delete(id);
+            await BillService.DeleteAsync(id);
+            var item = Bills.Single(b => b.Id == id);
+            Bills.Remove(item);
+            StateHasChanged();
         }
 
         public void DisplayAddBillDialog() => IsShowDialog = true;
@@ -34,8 +37,9 @@ namespace MonthlyBillScheduler.Server.Pages.Bills
 
         public async void BillFormDialog_OnSave()
         {
-            Bills = await BillService.GetAll();
+            Bills = await BillService.GetAllAsync();
             IsShowDialog = false;
+            StateHasChanged();
         }
     }
 }

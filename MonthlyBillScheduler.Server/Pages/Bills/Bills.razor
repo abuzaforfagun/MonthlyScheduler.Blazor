@@ -8,35 +8,41 @@
     </div>
 </div>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Title</th>
-            <th scope="col">Amount</th>
-            <th scope="col">Description</th>
-            <th scope="col">Date</th>
-            <th scope="col">Action</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var bill in Bills)
-        {
+@if (Bills == null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    <table class="table">
+        <thead>
             <tr>
-                <td>@bill.Id</td>
-                <td>@bill.Name</td>
-                <td>@bill.Amount</td>
-                <td>@bill.Description</td>
-                <td>@bill.CreatedOn</td>
-                <td>
-                    <a class="btn btn-primary" href="billform/@bill.Id">Edit</a>
-                    <a class="btn btn-danger" @onclick="(() => DeleteBill(bill.Id))">Delete</a>
-                </td>
+                <th scope="col">#</th>
+                <th scope="col">Title</th>
+                <th scope="col">Amount</th>
+                <th scope="col">Description</th>
+                <th scope="col">Date</th>
+                <th scope="col">Action</th>
             </tr>
-        }
-    </tbody>
-</table>
-
+        </thead>
+        <tbody>
+            @foreach (var bill in Bills)
+            {
+                <tr>
+                    <td>@bill.Id</td>
+                    <td>@bill.Name</td>
+                    <td>@bill.Amount</td>
+                    <td>@bill.Description</td>
+                    <td>@bill.CreatedOn</td>
+                    <td>
+                        <a class="btn btn-primary" href="billform/@bill.Id">Edit</a>
+                        <a class="btn btn-danger" @onclick="(() => DeleteBill(bill.Id))">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
 @if (IsShowDialog)
 {
     <MonthlyBillScheduler.Server.Components.Dialogs.BillFormDialog @ref="BillFormDialog" 

@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MonthlyBillScheduler.Domain\MonthlyBillScheduler.Domain.csproj" />
+    <ProjectReference Include="..\MonthlyBillScheduler.Entities\MonthlyBillScheduler.Entities.csproj" />
   </ItemGroup>
 
 </Project>

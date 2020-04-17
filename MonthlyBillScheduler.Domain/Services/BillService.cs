@@ -1,4 +1,4 @@
-﻿using MonthlyBillScheduler.Domain.Models;
+﻿using MonthlyBillScheduler.Entities.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,6 +34,7 @@ namespace MonthlyBillScheduler.Domain.Services
             {
                 var existingBill = _bills.SingleOrDefault(b => b.Id == bill.Id);
                 existingBill.Name = bill.Name;
+                existingBill.Amount = bill.Amount;
                 existingBill.Description = bill.Description;
                 existingBill.ModifiedOn = DateTime.Now;
             }

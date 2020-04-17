@@ -3,7 +3,10 @@
 
 @inherits BillFormBase
 
-<MonthlyBillScheduler.Server.Components.BillFormCore.BillFormCore @ref="BillFormCore"
-                                                                  Bill="Bill"
-                                                                  SaveEventCallBack="@BillFormCore_OnSave" />
+@if (Bill != null)
+{
+    <MonthlyBillScheduler.Server.Components.BillFormCore.BillFormCore @ref="BillFormCore"
+                                                                      Bill="Bill"
+                                                                      SaveEventCallBack="@BillFormCore_OnSave" />
+}
 
