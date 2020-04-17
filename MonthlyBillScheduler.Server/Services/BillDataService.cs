@@ -16,10 +16,7 @@ namespace MonthlyBillScheduler.Server.Services
             this.httpClient = httpClient;
         }
 
-        public async Task DeleteAsync(int id)
-        {
-            await httpClient.DeleteAsync($"bills/{id}");
-        }
+        public async Task DeleteAsync(int id) => await httpClient.DeleteAsync($"bills/{id}");
 
         public async Task<List<BillItem>> GetAllAsync()
         {
