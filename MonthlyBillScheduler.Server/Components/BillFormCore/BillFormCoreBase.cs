@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
-using MonthlyBillScheduler.Domain.Models;
+using MonthlyBillScheduler.Entities.Models;
 using MonthlyBillScheduler.Server.Services;
 
 namespace MonthlyBillScheduler.Server.Components.BillFormCore

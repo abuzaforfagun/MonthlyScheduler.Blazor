@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
-using MonthlyBillScheduler.Domain.Models;
+using MonthlyBillScheduler.Entities.Models;
 using MonthlyBillScheduler.Server.Components.Dialogs;
 using MonthlyBillScheduler.Server.Services;
 using System.Collections.Generic;

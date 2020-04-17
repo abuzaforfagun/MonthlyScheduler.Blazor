@@ -1,4 +1,4 @@
-﻿using MonthlyBillScheduler.Domain.Models;
+﻿using MonthlyBillScheduler.Entities.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

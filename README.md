@@ -1,6 +1,6 @@
 # Blazor application with external Web API
 
-Currently we are serving the view and the database interaction using a same application. To make our application more robous and more decoupled we can move our database operation and all business logic into a separate application. And serve it as Web API and talk to that web api from our blazor application.
+Currently, we are serving the view and the database interaction using the same application. To make our application more robust and more decoupled we can move our database operation and all business logic into a separate application. And serve it as Web API and talk to that web api from our blazor application.
 
 ## Creating new web api with desired actions
 
@@ -11,10 +11,10 @@ Currently we are serving the view and the database interaction using a same appl
 * Enter the project name and click on Next.
 * Select API template and press Create.
 ![web api project creation 2](https://user-images.githubusercontent.com/24603959/79445305-44264180-7ffe-11ea-8169-ca3e6db90600.JPG)
-* Create a controller inside Controllers folder and name it as BillsController.
+* Create a controller inside the Controllers folder and name it as BillsController.
 * Add a reference of Domain project.
-* Move the dependency registration of BillService from the startp class of MonthlyBillScheduler.Server to startup class of MonthlyBillScheduler.API project.
-* Do the dependency injection of BillService inside BillsController. This time we have no access of Inject attribute, and we do the constractor dependency injection.
+* Move the dependency registration of BillService from the startup class of MonthlyBillScheduler.Server to startup class of MonthlyBillScheduler.API project.
+* Do the dependency injection of BillService inside BillsController. This time we have no access to Inject attribute, and we do the constructor dependency injection.
 ![Controller dependency injection](https://user-images.githubusercontent.com/24603959/79446075-7be1b900-7fff-11ea-9d2c-f2b06033d5ec.JPG)
 
 * Add actions for get, create, update and delete.
@@ -35,12 +35,23 @@ Currently we are serving the view and the database interaction using a same appl
 ![Add http client dependenc](https://user-images.githubusercontent.com/24603959/79450263-8b183500-8006-11ea-978b-324ef68e4ed8.JPG)
 
 * Create a new class named BillDataService and implement IBillDataService.
-* Do the HttpClient dependency injection using constractor injection.
+* Do the HttpClient dependency injection using constructor injection.
 * Call our desired api and deserialize it from BillDataService.
 ![Call api](https://user-images.githubusercontent.com/24603959/79532691-ae3ef500-8097-11ea-8d85-352149724394.JPG)
 
 * Replace the uses of IBillService and use IBillDataService.
-* Add ```StateHasChanged()``` after every action. It helps razor view to detect the changes.
-* As we are retreiving data from api, there are some latency available. We need to add a loading indicator before the data retriving happens.
+* Add ```StateHasChanged()``` after every action. It helps the razor view to detect the changes.
+* As we are retrieving data from api, there is some latency available. We need to add a loading indicator before the data retrieving happens.
 ![Add Loading](https://user-images.githubusercontent.com/24603959/79532922-6f5d6f00-8098-11ea-879a-680b3d200655.JPG)
 
+## Separate models from Domain project
+
+Now our api talk to our domain project. But as we are using the models in blazor application, we are unable to remove the reference. We can move the models in a separate project and completely remove the reference of domain project from our blazor application.
+
+* Create a new class library project named MonthlyBillScheduler.Entities.
+* Move model folders from Domain project to newly created project.
+* Change the namespace of models.
+* Remove project reference of MonthlyBillScheduler.Domain from our MonthlyBillScheduler.Server project.
+* Add project reference of MonthlyBillScheduler.Entites.
+* Add MonthlyBillScheduler.Entities project reference in MonthlyBillScheduler.Domain project.
+* Change the using namespaces, where BillItem class used.

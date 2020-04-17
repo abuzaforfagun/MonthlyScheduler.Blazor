@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MonthlyBillScheduler.Domain.Models;
 using MonthlyBillScheduler.Domain.Services;
+using MonthlyBillScheduler.Entities.Models;
 using System.Threading.Tasks;
 
 namespace MonthlyBillScheduler.API.Controllers

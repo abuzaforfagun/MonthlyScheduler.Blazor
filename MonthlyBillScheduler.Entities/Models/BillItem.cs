@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace MonthlyBillScheduler.Domain.Models
+namespace MonthlyBillScheduler.Entities.Models
 {
     public class BillItem
     {
